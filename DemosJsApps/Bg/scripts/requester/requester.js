@@ -67,7 +67,7 @@ app.requester = (function() {
     }
 
     return {
-        load: function (baseUrl) {
+        get: function (baseUrl) {
             return new Requester(baseUrl);
         }
     }

@@ -1,3 +1,11 @@
-/**
- * Created by pimp on 5.11.2015 ã..
- */
+var Comment = (function () {
+    function Comment(id, content, author, dateCreated, commentNumber) {
+        this.id = id;
+        this.content = content;
+        this.author = author;
+        this.dateCreated = dateCreated;
+        this.commentNumber = commentNumber;
+    }
+
+    return Comment;
+}());
