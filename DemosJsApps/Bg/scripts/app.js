@@ -16,12 +16,15 @@ var app = app || {};
         //    // No route defined, set location to '#/' to trigger app automatically:
         //    document.location.hash = '/';
         //});
+        this.get('#/about', function () {
+            controller.getAboutPage(selector)
+        })
 
-        //this.get('#/', function () {
-        //    controller.getHomePage(leftBox);
-        //    //controller.getNewestPostView(rightBox);
-        //    //controller.getTagsView(rightBox);
-        //});
+        this.get('#/', function () {
+            controller.getHomePage(leftBox);
+            //controller.getNewestPostView(rightBox);
+            //controller.getTagsView(rightBox);
+        });
 
         //this.get('#/Login', function () {
         //    controller.getLoginPage(selector);
@@ -72,5 +75,5 @@ var app = app || {};
         //});
     });
 
-    app.router.run('#/register');
+    app.router.run('#/');
 }());

@@ -35,6 +35,7 @@ app.registerView = (function() {
                     } else {
                         console.log('error', 'Error', 'The password don\'t match');
                     }
+
                 });
             });
         }

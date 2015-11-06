@@ -1,0 +1,38 @@
+<!--{{#posts}}-->
+<!--<div class="searchPost">-->
+    <!--&lt;!&ndash; <img src="{{imgSoruce}}" alt=""> &ndash;&gt;-->
+    <!--<div><a href="#/Post/{{id}}"><img src="{{img}}" alt="" id="searchPostImg"></a></div>-->
+    <!--<h3><a href="#/Post/{{id}}">{{title}}</a></h3>-->
+    <!--<div class="searchPostContent"><p>{{content}}</p></div>-->
+    <!--<div class="searchPostInfo">-->
+        <!--&lt;!&ndash;<div class="viewsCount"><img src="./img/viewIcon.png" alt=""><h4>{{viewsCount}}</h4></div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="voteCount"><img src="./img/likeIcon.png" alt=""><h4>{{voteCount}}</h4></div>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="readMore"><a href="#/Post/{{id}}">Read more</a></div>-->
+<!--</div>-->
+<!--{{/posts}}-->
+
+{{#each posts}}
+<article id="{{objectId}}" class="largePost post ">
+    <div class="jumbotron">
+        <h2><a class="text-danger" href="#/post/{{objectId}}">{{title}}</a></h2>
+        <p>posted by <span class="glyphicon glyphicon-user"></span><span class="author"><a class="text-success" href="#/user/{{authorId}}"> {{author}}</a></span> at <span class="glyphicon glyphicon-calendar"></span> <time>{{createdAt}}</time></p>
+        {{#if headerImage}}
+        <div class="col-xs-12 col-md-12">
+            <img class="header-image" src="{{headerImage.url}}" alt="headerImage">
+        </div>
+        {{/if}}
+        <p class="post-content">{{content}}</p>
+        <p class="post-details-container">
+            <span class="glyphicon glyphicon-eye-open" title="visits"></span> <span class="views post-details" title="visits"> {{visitsCount}}</span>
+            <span class="glyphicon glyphicon-comment" title="comments"></span> <span class="comments-count post-details" title="comments"></span>
+            <span class="glyphicon glyphicon-tags" title="tags"> </span> <span class="post-details" title="tags">
+                    {{#tags}}
+                        <a href="#/tag/{{this}}">{{this}}</a><span> / </span>
+                    {{/tags}}
+                </span>
+        </p>
+        <hr />
+    </div>
+</article>
+{{/each}}

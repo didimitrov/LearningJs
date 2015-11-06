@@ -1,0 +1,58 @@
+html {
+    overflow-y: scroll;
+}
+body {
+    margin: 0;
+    font-size: 18px;
+}
+
+#mainContainer {
+    margin: 0 auto;
+    width: 1000px;
+    min-height: 500px ;
+}
+#center {
+    width: 1000px;
+    height: auto;
+    /*margin-top: 83px;*/
+    display: inline-block;
+}
+#leftSide {
+    width: 700px;
+    height: auto;
+    display: inline-block;
+}
+#rightSide {
+    width: 300px;
+    height: auto;
+    float: right;
+}
+
+.largePost img{
+    max-width: 320px;
+    max-height: 260px;
+
+}
+.largePost h3 {
+    height: 45px;
+}
+#about-section>h2{
+    text-align: center;
+}
+#about-section>h5{
+    line-height: 2em;
+}#posts .jumbotron, .post .jumbotron {
+     padding: 5px 20px;
+
+ }
+
+#posts .jumbotron p, .post .jumbotron p{
+    font-size: 1.1em;
+}
+
+#posts .jumbotron .post-content, .post .jumbotron .post-content {
+    line-height: 1.5em;
+    font-size: 1.1em;
+    background: #f6f6f6;
+
+}

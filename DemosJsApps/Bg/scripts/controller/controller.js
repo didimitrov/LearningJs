@@ -26,15 +26,32 @@ app.controller = (function () {
 
     }
 
-    //Controller.prototype.getHomePage = function (selector) {
+    //Controller.prototype.getAllPostPage = function (selector) {
     //    this.loadInitialView();
-    //    this.model.getTopPosts()
-    //        .then(function (data) {
-    //            app.homeView.load(selector, data, "topPosts");
-    //        }, function (error) {
+    //    this.model.getPosts()
+    //        .then(function(data){
+    //            app.allPostsView.load(selector, data);
+    //        }, function(error){
     //            console.error(error);
     //        });
     //}
+
+    Controller.prototype.getHomePage = function (selector) {
+        this.loadInitialView();
+        this.model.getNewestPosts()
+            .then(function (data) {
+                app.homeView.load(selector, data, "newPosts");
+            }, function (error) {
+                console.error(error);
+            });
+    }
+
+    Controller.prototype.getAboutPage = function (selector) {
+        $(selector).empty();
+        app.aboutView.load(selector);
+    };
+
+
     return {
         get: function (model) {
             return new Controller(model);
