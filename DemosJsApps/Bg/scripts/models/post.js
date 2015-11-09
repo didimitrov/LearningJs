@@ -9,7 +9,7 @@ var Post = (function () {
       this.voteCount = voteCount,
       this.commentsCount = commentsCount,
       this.img = img,
-      this.tags = tags
+      this.tags = tags;
       if  (!comments){
         this.comments = [];
         this.commentsCount = 0;

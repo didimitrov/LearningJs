@@ -36,8 +36,32 @@ app.manager =(function () {
                 defer.reject(error)
             })
         return defer.promise;
-    }
+    };
+   Manager.prototype.getUserById = function(id){
+        var defer = Q.defer();
+        this._requester.get('users/'+ id )
+            .then(function (data) {
 
+                defer.resolve(data);
+            }, function (error) {
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    }
+    Manager.prototype.logout = function() {
+        var defer = Q.defer();
+        this._requester.post('logout').then(function(data) {
+            delete localStorage['logged-in'];
+            delete localStorage['username'];
+            $("#loginButton").before($('<a href="#/Register" id="registerButton"><p>Become a member</p></a>'));
+            defer.resolve(data);
+        }, function(error) {
+            defer.reject(error);
+        });
+
+        return defer.promise;
+    }
     //Manager.prototype.getNewestPosts = function () {
     //    var defer = Q.defer();
     //    var _this = this;
@@ -92,9 +116,9 @@ app.manager =(function () {
                         'createdAt': new Date(dataPost.createdAt).toLocaleString()
                     };
 
-                    //if(dataPost.headerImage){
-                    //    post.image = dataPost.headerImage.url;
-                    //}
+                    if(dataPost.headerImage){
+                        post.image = dataPost.headerImage.url;
+                    }
                     _this.newestPostsRepo['posts'].push(post);
                 });
 
@@ -185,7 +209,55 @@ app.manager =(function () {
     //
     //    return defer.promise;
     //};
+   Manager.prototype.getPost = function (id) {
+        // (When logged in only! - add security in the server and don't allow new post screen to show up)
+        var defer = Q.defer();
+        var _this = this;
 
+        this._requester.get('classes/Post/' + id)
+            .then(function(data) {
+                var id = data.objectId;
+                var title = data.title;
+                var content = data.content;
+                var author = data.author;
+                var dateCreated = data.createdAt;
+                var viewsCount = data.viewsCount;
+                var voteCount = data.voteCount;
+                var commentsCount = data.commentsCount;
+
+                var img = data.img;
+                var tags = data.tags;
+                var whereParameter = '{' +
+                    '"post":' +
+                    '{"__type":"Pointer","className":"Post","objectId":"' + id + '"}' +
+                    '}';
+                var post = new Post(id, title, content, author, dateCreated, viewsCount, voteCount, commentsCount, null, img, tags);
+
+                var commentNumber = 1;
+                _this._requester.get('classes/Comment?where=' + whereParameter)
+                    .then(function(data) {
+                        for (var comment in data.results) {
+                            var id = data.results[comment].objectId;
+                            var content = data.results[comment].content;
+                            var author = data.results[comment].author;
+                            var date = new Date(data.results[comment].createdAt);
+                            var dateCreated = ((date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear());
+
+
+                            var commentModel = new Comment(id, content, author, dateCreated, commentNumber);
+                            commentNumber++;
+                            post.addComment(commentModel);
+                        }
+
+                        defer.resolve(post);
+                    });
+
+            }, function(error) {
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    };
 
     return{
         get: function (requester) {

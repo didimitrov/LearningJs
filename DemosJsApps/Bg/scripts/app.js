@@ -12,10 +12,7 @@ var app = app || {};
         var rightBox = '#rightSide';
         var lastEditPostId = '';
 
-        //this.get('', function(context) {
-        //    // No route defined, set location to '#/' to trigger app automatically:
-        //    document.location.hash = '/';
-        //});
+
         this.get('#/about', function () {
             controller.getAboutPage(selector)
         })
@@ -26,20 +23,20 @@ var app = app || {};
             //controller.getTagsView(rightBox);
         });
 
-        //this.get('#/Login', function () {
-        //    controller.getLoginPage(selector);
-        //});
+        this.get('#/login', function () {
+            controller.getLoginPage(selector);
+        });
 
         this.get('#/register', function () {
             controller.getRegisterPage(selector);
         });
 
-        //this.get('#/Post/:id', function (data) {
-        //    // Controller - Get Post page
-        //    var id = data['params'].id;
-        //    controller.getSinglePostPage(selector, id);
-        //
-        //});
+        this.get('#/Post/:id', function (data) {
+            // Controller - Get Post page
+            var id = data['params'].id;
+            controller.getSinglePostPage(selector, id);
+
+        });
         //
         //this.get('#/AllPosts', function (data) {
         //    controller.getAllPostsPage(selector);
@@ -70,9 +67,9 @@ var app = app || {};
         //    controller.adminDeleteComment("#center", id, lastEditPostId);
         //});
         //
-        //this.get('#/Create', function () {
-        //    controller.getAdminCreatePostPage(selector);
-        //});
+        this.get('#/Create', function () {
+            controller.getAdminCreatePostPage(selector);
+        });
     });
 
     app.router.run('#/');

@@ -1,0 +1,36 @@
+<div id="postView">
+    <div id="postViewTitle">{{title}}</div>
+    <!-- <img src="{{url}}" alt=""> -->
+    <img src='{{img}}' alt="">
+    <div id="postViewInfo">
+        <div id="postViewAuthor"><img src="./img/author.png" alt=""><p>{{author}}</p></div>
+        <div id="postViewVoteCount">Rate: <span id="rateCount">{{voteCount}}</span></div>
+        <a href="javascript: void(0);" id="voteUp"><img src="./img/voteUp.png" alt=""></a>
+        <a href="javascript: void(0);" id="voteDown"><img src="./img/voteDown.png" alt=""></a>
+        <div id="postViewViews">Views: <span>{{viewsCount}}</span></div>
+    </div>
+
+    <div id="postViewContent">{{content}}</div>
+    <br />
+    <br />
+    <div id="postViewComentsTitle">Comments:</div>
+
+    <br />
+    <br />
+    <div id="comments">
+        {{#comments}}
+        <div class="comment">
+            <div id="postViewCommentContent"><p>{{content}}</p></div>
+            <div id="postViewCommentNumber"><p>{{commentNumber}}</p></div>
+            <div id="postViewCommentAuthor">{{author}}</div>
+            <div id="postViewCommentDate">{{dateCreated}}</div>
+        </div>
+        {{/comments}}
+    </div>
+    <br/>
+    {{#logged-in}}
+    <div id="writeComment">Comment here:</div>
+    <textarea id="commentContent" ></textarea>
+    <button id="commentSend">Send</button>
+    {{/logged-in}}
+</div>
