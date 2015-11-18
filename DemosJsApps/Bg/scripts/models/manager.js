@@ -259,6 +259,57 @@ app.manager =(function () {
         return defer.promise;
     };
 
+   Manager.prototype.viewPage = function (id) {
+        var defer = Q.defer();
+        var data = {
+            id: id,
+            user: localStorage.username
+        };
+
+        this._requester.post('functions/makeView', data)
+            .then(function (successData) {
+                defer.resolve(successData);
+            }, function (error) {
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    };
+
+    function identifyRole(_this, roleId) {
+        var defer = Q.defer();
+
+        var whereParameter = '?where={' +
+            '"$relatedTo":' +
+            '{"object":' +
+            '{"__type":"Pointer",' +
+            '"className":"_Role",' +
+            '"objectId":"' + roleId + '"},' +
+            '"key":"users"}}';
+
+        _this._requester.get('sessions/me')
+            .then(function (userData) {
+
+                _this._requester.get('users' + whereParameter)
+                    .then(function (roleData) {
+                        for (var user in roleData.results) {
+                            if (roleData.results[user].objectId === userData.user['objectId']) {
+                                defer.resolve(true);
+                                return;
+                            }
+                        }
+
+                        defer.reject(false);
+                    }, function (error) {
+                        defer.reject(error);
+                    });
+            }, function (error) {
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    }
+
     return{
         get: function (requester) {
             return new Manager(requester)
